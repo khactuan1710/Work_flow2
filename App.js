@@ -23,8 +23,8 @@ import {
 } from 'react-native';
 
 import 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons'
 
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -146,12 +146,20 @@ class App extends React.Component {
       <NavigationContainer>
         <Drawer.Navigator
           initialRouteName={Home} drawerPosition='left'
-          drawerStyle={{ width: width * (2 / 3) }}
+          // drawerStyle={{
+          //   width: width * (2 / 3),
+          // }}
+
+          drawerContentOptions={{
+            activeTintColor: 'red',
+          }}
+
+
           drawerContent={props =>
             <Drawer1 {...props} />}
+
         >
           <Drawer.Screen name='MyStack' component={MyStack} ></Drawer.Screen>
-          <Drawer.Screen name='drawer' component={Drawer1} ></Drawer.Screen>
         </Drawer.Navigator>
       </NavigationContainer>
     )

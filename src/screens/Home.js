@@ -96,7 +96,7 @@ class Home extends React.Component {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <TouchableOpacity onPress={this.props.navigation.navigate('drawer')}>
+                        <TouchableOpacity onPress={() => (this.props.navigation.openDrawer())}>
                             <Image source={require('./iconHome/onmenu.png')} resizeMode="contain" style={styles.onmenu}></Image>
                         </TouchableOpacity>
                         <Text style={styles.text_header}>Work flow</Text>

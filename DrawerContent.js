@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import {
     DrawerItem,
     DrawerContentScrollView,
@@ -15,6 +15,9 @@ import {
     TouchableRipple,
     Switch,
 } from 'react-native-paper';
+import { color } from 'react-native-reanimated';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 class DrawerContent extends React.Component {
@@ -24,49 +27,93 @@ class DrawerContent extends React.Component {
                 <View
                     style={styles.drawerContent}
                 >
-                    <View style={styles.userInfoSection}>
-                        <Avatar.Image
-                            source={{
-                                uri:
-                                    'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
-                            }}
-                            size={50}
+                    <View style={[styles.userInfoSection, { borderBottomWidth: 1 }]}>
+                        <Image
+                            source={require('./image/clock.png')}
+                            resizeMode='contain' style={{ width: 65, height: 65 }}
                         />
-                        <Title style={styles.title}>Nguyen Khac Tuan</Title>
+                        <Text style={{ marginLeft: 20, color: '#1BADFF', fontWeight: 'bold', fontSize: 25 }}>Work flow</Text>
 
                     </View>
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem
 
+                            activeTintColor="#1BADFF"
+                            label="Công việc sắp tới"
+                            onPress={() => { }}
+                            icon={({ focused, color, size }) =>
+                                (<Image source={require('./src/screens/icondrawer/iconcongviecsaptoi.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />)
+                            }
+                        />
+                        <DrawerItem
+                            activeTintColor="#1BADFF"
+                            label="Công việc hoàn thành"
+                            onPress={() => { }}
+                            icon={({ focused, color, size }) =>
+                                (<Image source={require('./src/screens/icondrawer/congviechoanthanh1.png')} resizeMode='contain' style={{ height: 20, width: 20 }} />)
+                            }
+                        />
+                        <DrawerItem
+                            activeTintColor="#1BADFF"
+                            label="Công việc quá thời gian"
+                            onPress={() => { }}
+                            icon={({ focused, color, size }) =>
+                                (<Image source={require('./src/screens/icondrawer/iconcongviecquathoigian.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />)
+                            }
+                        />
+
+                    </Drawer.Section>
+                    <Drawer.Section style={styles.drawerSection}>
+                        <DrawerItem
+
+                            activeTintColor="#1BADFF"
                             label="Tài khoản"
                             onPress={() => { }}
+                            icon={({ focused, color, size }) =>
+                                (<Image source={require('./src/screens/icondrawer/icontaikhoan.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />)
+                            }
                         />
                         <DrawerItem
-
+                            activeTintColor="#1BADFF"
                             label="Cài đặt"
                             onPress={() => { }}
+                            icon={({ focused, color, size }) =>
+                                (<Image source={require('./src/screens/icondrawer/iconcaidat.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />)
+                            }
                         />
                         <DrawerItem
-
+                            activeTintColor="#1BADFF"
                             label="Hướng dẫn"
                             onPress={() => { }}
+                            icon={({ focused, color, size }) =>
+                                (<Image source={require('./src/screens/icondrawer/iconhuongdan.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />)
+                            }
                         />
                         <DrawerItem
-
+                            activeTintColor="#1BADFF"
                             label="Chia sẻ"
                             onPress={() => { }}
+                            icon={({ focused, color, size }) =>
+                                (<Image source={require('./src/screens/icondrawer/iconchiase.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />)
+                            }
                         />
                     </Drawer.Section>
                     <Drawer.Section >
                         <DrawerItem
-
+                            activeTintColor="#1BADFF"
                             label="Thông tin ứng dụng"
                             onPress={() => { }}
+                            icon={({ focused, color, size }) =>
+                                (<Image source={require('./src/screens/icondrawer/iconthongtin.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />)
+                            }
                         />
                         <DrawerItem
-
+                            activeTintColor="#1BADFF"
                             label="Ủng hộ"
                             onPress={() => { }}
+                            icon={({ focused, color, size }) =>
+                                (<Image source={require('./src/screens/icondrawer/iconhotro.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />)
+                            }
                         />
                     </Drawer.Section>
                 </View>
@@ -81,7 +128,11 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     userInfoSection: {
+
+        height: 100,
         paddingLeft: 20,
+        flexDirection: 'row',
+        alignItems: "center"
     },
     title: {
         marginTop: 20,
