@@ -23,11 +23,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 class DrawerContent extends React.Component {
     render() {
         return (
-            <DrawerContentScrollView {...this.props}>
-                <View
-                    style={styles.drawerContent}
-                >
-                    <View style={[styles.userInfoSection, { borderBottomWidth: 1 }]}>
+            <View style={styles.drawerContent}>
+                <DrawerContentScrollView {...this.props}>
+                    <View style={[styles.userInfoSection, { borderBottomWidth: 1, borderBottomColor: '#f4f4f4' }]}>
                         <Image
                             source={require('./image/clock.png')}
                             resizeMode='contain' style={{ width: 65, height: 65 }}
@@ -116,8 +114,19 @@ class DrawerContent extends React.Component {
                             }
                         />
                     </Drawer.Section>
-                </View>
-            </DrawerContentScrollView>
+                </DrawerContentScrollView>
+                <Drawer.Section style={styles.bottomDrawerSection}>
+                    <DrawerItem
+                        label='Đăng xuất'
+                        onPress={() => { }}
+                        icon={(focused) =>
+                            <Image source={require('./src/screens/iconHome/icondangxuat.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />
+                        }
+                    >
+
+                    </DrawerItem>
+                </Drawer.Section>
+            </View>
         );
     }
 }
@@ -165,4 +174,9 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 16,
     },
+    bottomDrawerSection: {
+        marginBottom: 20,
+        borderTopColor: '#f4f4f4',
+        borderTopWidth: 1
+    }
 });

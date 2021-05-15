@@ -19,20 +19,22 @@ class Creact_work extends React.Component {
         tenCongViec: '',
         timeStart: '',
         timeEnd: '',
-        opjectData: []
+        opjectData: [],
+        isFinished: false
     }
     goBack = () => {
         this.props.navigation.goBack()
         console.log(this.state.id);
     }
     create_finish = async () => {
-        const { tenCongViec, timeStart, timeEnd, opjectData } = this.state
+        const { tenCongViec, timeStart, timeEnd, opjectData, isFinished } = this.state
         const data = [...opjectData]
         const dataFil = {
             id: new Date().getTime(),
             nameWork: tenCongViec,
             timeStart: timeStart,
-            timeEnd: timeEnd
+            timeEnd: timeEnd,
+            isFinished: isFinished
         }
         data.push(dataFil)
         this.setState({ opjectData: data })

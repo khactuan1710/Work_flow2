@@ -2,6 +2,8 @@ import { useRoute } from '@react-navigation/core';
 import React from 'react'
 import axios from 'axios'
 
+import Header from './Header'
+
 import {
     SafeAreaView,
     ScrollView,
@@ -53,7 +55,7 @@ class Home extends React.Component {
             if (data !== null) {
                 const newWorks = JSON.parse(data);
                 this.setState({ work_today1: newWorks })
-                console.log(valuew)
+
 
                 // console.log(typeof this.state.work_today1);
                 // console.log(this.state.work_today1);
@@ -83,25 +85,38 @@ class Home extends React.Component {
             cloneWorkToday.splice(index, 1);
             this.setState({ work_today1: cloneWorkToday })
             AsyncStorage.setItem('data_new_work', JSON.stringify(cloneWorkToday));
+            console.log(index)
         }
+
     }
 
     resertWork = () => {
         this.props.navigation.navigate('Create_work')
     }
 
+    FinishedItem = (id) => {
+        var newTaskList = [...this.state.work_today1];
+        const index = newTaskList.findIndex(item => item.id === id)
+        if (newTaskList[index].isFinished == true) {
+            newTaskList[index].isFinished = false
+        } else {
+            newTaskList[index].isFinished = true
+        }
+
+        this.setState({ work_today1: newTaskList })
+
+
+
+
+        // newTaskList[index].isFinished = true; 
+        // this.setState({ data: newTaskList });
+    }
 
     render() {
         return (
             <ScrollView>
                 <View style={styles.container}>
-                    <View style={styles.header}>
-                        <TouchableOpacity onPress={() => (this.props.navigation.openDrawer())}>
-                            <Image source={require('./iconHome/onmenu.png')} resizeMode="contain" style={styles.onmenu}></Image>
-                        </TouchableOpacity>
-                        <Text style={styles.text_header}>Work flow</Text>
-                        <Image source={require('./iconHome/clock.png')} style={styles.onmenu} resizeMode="contain"></Image>
-                    </View>
+                    <Header {...this.props} name='Danh Sách Công việc' />
                     <View style={styles.content}>
 
                         <Text style={styles.text_content}>Hôm nay</Text>
@@ -110,7 +125,11 @@ class Home extends React.Component {
                             this.state.work_today1.map((item, index) =>
                                 <View style={styles.work}>
                                     <View style={styles.a_work}>
-                                        <TouchableOpacity style={styles.button_finish}></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.FinishedItem(item.id)}>
+                                            {
+                                                item.isFinished ? <Image source={require('./iconHome/iconfinished.png')} style={styles.iconFinished} /> : <Image source={require('./iconHome/iconchuahoanthanh.png')} style={styles.iconFinished} />
+                                            }
+                                        </TouchableOpacity>
                                         {/* <Text style={styles.text_work}>{item.nameWork} {item.timeStart} - {item.timeEnd}</Text> */}
                                         <TouchableHighlight onPress={this.resertWork}>
                                             <Text style={styles.text_work}>{item.nameWork} {item.timeStart} - {item.timeEnd}</Text>
@@ -159,29 +178,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    header: {
-        height: 88,
-        backgroundColor: '#FFFFFF',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingTop: 20
-    },
-    onmenu: {
-        height: '55%',
-        width: 30,
-        marginTop: 10
-    },
-    text_header: {
-        color: '#1BADFF',
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginTop: 10
-    },
 
 
-
+    iconFinished: {
+        height: 20,
+        width: 20
+    },
     content: {
         height: '87%',
         width: '90%',
@@ -211,12 +213,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: 10,
 
-    },
-    button_finish: {
-        height: 20,
-        width: 20,
-        borderRadius: 10,
-        borderWidth: 1,
     },
     button_clear_work: {
         height: 20,

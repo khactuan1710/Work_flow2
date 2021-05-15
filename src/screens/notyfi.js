@@ -13,6 +13,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import Header from './Header'
+
 class Notify extends React.Component {
     state = {
         list_notify: [
@@ -47,14 +49,7 @@ class Notify extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <TouchableOpacity>
-                        <Image source={require('./iconHome/onmenu.png')} resizeMode="contain" style={styles.onmenu}></Image>
-                    </TouchableOpacity>
-                    <Text style={styles.text_header}>Thong bao</Text>
-                    <Image source={require('./iconHome/clock.png')} style={styles.onmenu} resizeMode="contain"></Image>
-                </View>
-
+                <Header name='Thong bao' {...this.props} />
                 <View style={{ alignItems: 'center' }}><Text style={{ fontSize: 22, color: '#1BADFF', fontWeight: 'bold', marginTop: 40 }}>Nhập thời gian thông báo</Text></View>
 
                 <View style={styles.content}>
@@ -100,27 +95,6 @@ export default Notify;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    header: {
-        height: 88,
-        backgroundColor: '#FFFFFF',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingTop: 20,
-
-    },
-    onmenu: {
-        height: '55%',
-        width: 30,
-        marginTop: 10,
-    },
-    text_header: {
-        color: '#1BADFF',
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginTop: 10
     },
     content: {
         height: '75%',

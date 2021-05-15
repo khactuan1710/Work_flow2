@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 
 
+import Header from './Header'
+
 
 class Type_work extends React.Component {
 
@@ -28,12 +30,7 @@ class Type_work extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <TouchableOpacity onPress={this.goBack}>
-                        <Image source={require('./iconHome/onmenu.png')} resizeMode="contain" style={styles.onmenu}></Image>
-                    </TouchableOpacity>
-                    <Text style={[styles.text_header, { marginRight: 95 }]}>Tạo công việc</Text>
-                </View>
+                <Header name='Tạo công việc' {...this.props} />
                 <View style={styles.title_add_work}>
                     <Text style={styles.dots}></Text>
                     <Text style={styles.text_work}>Thêm mới một công việc</Text>
