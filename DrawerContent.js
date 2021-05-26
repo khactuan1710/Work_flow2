@@ -118,7 +118,7 @@ class DrawerContent extends React.Component {
                 <Drawer.Section style={styles.bottomDrawerSection}>
                     <DrawerItem
                         label='Đăng xuất'
-                        onPress={() => { }}
+                        onPress={() => (this.props.navigation.replace('login'))}
                         icon={(focused) =>
                             <Image source={require('./src/screens/iconHome/icondangxuat.png')} resizeMode='contain' style={{ height: 20, width: 20, }} />
                         }

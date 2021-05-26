@@ -48,7 +48,10 @@ class Login extends React.Component {
                         <Text style={{ color: '#3165EC', marginVertical: 15 }}>Quên mật khẩu?</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={styles.button}>
+                        style={styles.button}
+                        onPress={() => this.props.navigation.navigate('CreateAccount')}
+                    >
+
                         <Text>Dang Ky</Text>
                     </TouchableOpacity>
                 </View>
@@ -93,5 +96,10 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
+        shadowColor: 'rgba(0, 0, 0, 0.1)',
+        shadowOpacity: 5,
+        elevation: 0.8,
+        shadowRadius: 15,
+        shadowOffset: { width: 1, height: 13 },
     }
 })

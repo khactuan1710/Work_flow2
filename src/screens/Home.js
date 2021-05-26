@@ -19,7 +19,9 @@ import {
 } from 'react-native';
 import { withNavigationFocus } from "react-navigation";
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import CallApi from '../utils/apiCaller';
 
+import ItemWork from '../components/ItemWork'
 
 
 class Home extends React.Component {
@@ -30,63 +32,42 @@ class Home extends React.Component {
 
     }
 
-    //goi API
-    // componentDidMount() {
-    //     axios.get('https://609a39e80f5a13001721a54b.mockapi.io/congviec')
-    //         .then(res => {
-    //             const congviec = res.data;
-    //             this.setState({ work_today1: congviec });
-    //         })
-    //         .catch(error => console.log(error));
-    // }
+
 
     componentDidMount() {
-        const unsubscribe = this.props.navigation.addListener('focus', () => {
-            this.getDataWork();
+        const unsubscribe = this.props.navigation.addListener('focus', (e) => {
+            this.getData();
+
         })
 
         return unsubscribe
     }
 
-
-    getDataWork = async () => {
-        try {
-            const data = await AsyncStorage.getItem('data_new_work');
-            if (data !== null) {
-                const newWorks = JSON.parse(data);
-                this.setState({ work_today1: newWorks })
-
-
-                // console.log(typeof this.state.work_today1);
-                // console.log(this.state.work_today1);
-                // console.log(typeof this.state.work_today);
-                // console.log(this.state.work_today);
-                // console.log(valuew[0].nameWork)
-                // console.log(valuew[0].timeStart);
-                // console.log(valuew.length);
-                // var workToday = [...this.state.work_today]
-                // workToday[0].tenCongViec = valuew[0].nameWork
-                // workToday[0].timeStart = valuew[0].timeStart
-                // workToday[0].timeEnd = valuew[0].timeEnd
-                // this.setState({ work_today: workToday })
-
+    getData = () => {
+        CallApi('congviec', 'GET', null).then(
+            res => {
+                this.setState({ work_today1: res.data })
 
             }
-        } catch (error) {
-            console.log(error);
-        }
+        )
     }
+
+
+
+
 
     clear_work = (id) => {
         var cloneWorkToday = [...this.state.work_today1]
-        // console.log(this.state.work_today1);
+        console.log(id);
         const index = cloneWorkToday.findIndex(item => item.id === id);
-        if (index !== -1) {
-            cloneWorkToday.splice(index, 1);
-            this.setState({ work_today1: cloneWorkToday })
-            AsyncStorage.setItem('data_new_work', JSON.stringify(cloneWorkToday));
-            console.log(index)
-        }
+        CallApi(`congviec/${id}`, 'DELETE', null).then(res => {
+            if (index !== -1) {
+                cloneWorkToday.splice(index, 1);
+                this.setState({ work_today1: cloneWorkToday })
+                AsyncStorage.setItem('data_new_work', JSON.stringify(cloneWorkToday));
+                console.log(index)
+            }
+        })
 
     }
 
@@ -96,6 +77,7 @@ class Home extends React.Component {
 
     FinishedItem = (id) => {
         var newTaskList = [...this.state.work_today1];
+        console.log(id, 'id');
         const index = newTaskList.findIndex(item => item.id === id)
         if (newTaskList[index].isFinished == true) {
             newTaskList[index].isFinished = false
@@ -114,29 +96,24 @@ class Home extends React.Component {
 
     render() {
         return (
-            <ScrollView>
-                <View style={styles.container}>
-                    <Header {...this.props} name='Danh Sách Công việc' />
+
+            <View style={styles.container}>
+                <Header {...this.props} name='Danh Sách Công việc' />
+                <ScrollView>
                     <View style={styles.content}>
 
                         <Text style={styles.text_content}>Hôm nay</Text>
 
                         {
-                            this.state.work_today1.map((item, index) =>
-                                <View style={styles.work}>
-                                    <View style={styles.a_work}>
-                                        <TouchableOpacity onPress={() => this.FinishedItem(item.id)}>
-                                            {
-                                                item.isFinished ? <Image source={require('./iconHome/iconfinished.png')} style={styles.iconFinished} /> : <Image source={require('./iconHome/iconchuahoanthanh.png')} style={styles.iconFinished} />
-                                            }
-                                        </TouchableOpacity>
-                                        {/* <Text style={styles.text_work}>{item.nameWork} {item.timeStart} - {item.timeEnd}</Text> */}
-                                        <TouchableHighlight onPress={this.resertWork}>
-                                            <Text style={styles.text_work}>{item.nameWork} {item.timeStart} - {item.timeEnd}</Text>
-                                        </TouchableHighlight>
-                                    </View>
-                                    <TouchableOpacity style={styles.button_clear_work} onPress={() => this.clear_work(item.id)}><Image source={require('./iconHome/remove.png')} style={styles.text_clear}></Image></TouchableOpacity>
-                                </View>
+                            this.state.work_today1.map((item, index) => {
+                                return (
+                                    <ItemWork item={item}
+                                        FinishedItem={this.FinishedItem}
+                                        resetWork={this.resertWork}
+                                        clear_work={this.clear_work}
+                                    />
+                                )
+                            }
 
                             )
                         }
@@ -165,8 +142,8 @@ class Home extends React.Component {
                             )
                         }
                     </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </View>
         )
     }
 }

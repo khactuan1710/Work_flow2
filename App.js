@@ -53,6 +53,7 @@ import Type_work from './src/screens/type_work'
 import Create_work from './src/screens/creact_work'
 import Creact_successfully from './src/screens/create_successfully';
 import Notify from './src/screens/notyfi';
+import CreateAccount from './src/screens/Create_account'
 
 import Drawer1 from './DrawerContent'
 
@@ -247,6 +248,7 @@ class App extends React.Component {
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
           <Stack.Screen name='login' component={Login}></Stack.Screen>
+          <Stack.Screen name='CreateAccount' component={CreateAccount}></Stack.Screen>
           <Stack.Screen name='Home' component={MyDrawer}></Stack.Screen>
           <Stack.Screen name='Type_work' component={Type_work}></Stack.Screen>
           <Stack.Screen name='Create_work' component={Create_work}></Stack.Screen>
