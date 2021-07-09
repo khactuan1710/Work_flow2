@@ -114,7 +114,6 @@ class Home extends React.Component {
                                     />
                                 )
                             }
-
                             )
                         }
                         <Text style={styles.text_content}>Ngày mai</Text>

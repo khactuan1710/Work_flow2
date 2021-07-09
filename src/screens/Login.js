@@ -42,7 +42,7 @@ class Login extends React.Component {
                 </View>
                 <View style={styles.boxLogin}>
                     <TouchableOpacity onPress={this.ckeckLongin} style={[styles.button, { marginTop: 30 }]}>
-                        <Text style={{ color: '#000000', fontSize: 16 }}>Dang Nhap</Text>
+                        <Text style={{ color: '#000000', fontSize: 16 }}>Dang Nhap1</Text>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Text style={{ color: '#3165EC', marginVertical: 15 }}>Quên mật khẩu?</Text>
